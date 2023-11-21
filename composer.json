@@ -1,0 +1,16 @@
+{
+    "name": "marco/bitbull-customers",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Marco\\BitbullCustomers\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "marcogiammari",
+            "email": "marcogiammari@gmail.com"
+        }
+    ],
+    "require": {}
+}
