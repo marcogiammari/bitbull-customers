@@ -28,7 +28,9 @@ class Auth
             throw $e->getMessage();
         }
 
-        $accessToken = $authResponse->getBody()->getContents();
+        $responseBody = $authResponse->getBody()->getContents();
+        $responseData = json_decode($responseBody, true);
+        $accessToken = $responseData['token'];
 
         return $accessToken;
     }
