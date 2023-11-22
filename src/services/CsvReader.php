@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Service;
+namespace Services;
 
 use Exception;
 
 class CsvReader
 {
-    public static function getRandomVatFromCsv(string $path): string
+    public static function getContentAsArray(string $path): array
     {
         $data = [];
         if (!file_exists($path)) {
@@ -28,6 +28,6 @@ class CsvReader
             throw $e->getMessage();
         }
 
-        return $data[rand(0, count($data) - 1)];
+        return $data;
     }
 }
