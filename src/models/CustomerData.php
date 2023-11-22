@@ -12,7 +12,6 @@ class CustomerData
         private string $country,
         private string $name,
         private string $regNo,
-        private string $vatNo
     ) {
     }
 
@@ -23,7 +22,6 @@ class CustomerData
             $this->country,
             $this->name,
             $this->regNo,
-            $this->vatNo
         ];
     }
 }
