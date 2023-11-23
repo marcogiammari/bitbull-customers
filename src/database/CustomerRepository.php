@@ -22,16 +22,10 @@ class CustomerRepository
         $this->connection->begin_transaction();
 
         try {
-            $stmt1 = $this->connection->prepare("INSERT INTO customer (id, country, name, regNo) VALUES (?, ?, ?, ?)");
-            $stmt1->bind_param("ssss", ...$customer->values());
-            $stmt1->execute();
-            $stmt1->close();
-
-            // TODO: implement vatNo
-            // $stmt2 = $this->connection->prepare("INSERT INTO customer_vatNo (vatNo, customer_id) VALUES (?, ?)");
-            // $stmt2->bind_param("ss", $vatNo, $customer-> ID !!!!);
-            // $stmt2->execute();
-            // $stmt2->close();
+            $stmt = $this->connection->prepare("INSERT INTO customer (id, country, name, regNo, vatNo) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", ...$customer->values());
+            $stmt->execute();
+            $stmt->close();
 
             $this->connection->commit();
         } catch (Exception $e) {

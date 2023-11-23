@@ -42,12 +42,13 @@ class CustomerController
                 $companyData['country'],
                 $companyData['name'],
                 $companyData['regNo'],
+                $randomVat
             );
 
             try {
                 $this->customerRepository->save($newcompanyData);
             } catch (Exception $e) {
-                throw $e->getMessage();
+                throw new Exception($e->getMessage());
             }
         }
     }

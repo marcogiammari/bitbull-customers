@@ -12,16 +12,23 @@ class Customer
         private string $country,
         private string $name,
         private string $regNo,
+        private string $vatNo,
     ) {
     }
 
-    public function values()
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function values(): array
     {
         return [
             $this->id,
             $this->country,
             $this->name,
             $this->regNo,
+            $this->vatNo
         ];
     }
 }
