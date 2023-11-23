@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\Creditsafe;
+namespace Service\Creditsafe;
 
 require 'config/creditsafe.php';
 

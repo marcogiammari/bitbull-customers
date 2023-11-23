@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Controller;
 
-require './src/services/CsvReader.php';
-require './src/services/creditsafe/Auth.php';
-require './src/services/creditsafe/SearchCompany.php';
+require './src/service/CsvReader.php';
+require './src/service/creditsafe/Auth.php';
+require './src/service/creditsafe/SearchCompany.php';
+require './src/model/Customer.php';
 
-use Database\CustomerMySqlRepository;
-use Services\CsvReader;
-use Services\Creditsafe\Auth;
-use Services\Creditsafe\SearchCompany;
-use Models\companyData;
+use Database\CustomerRepository;
+use Service\CsvReader;
+use Service\Creditsafe\Auth;
+use Service\Creditsafe\SearchCompany;
+use Model\Customer;
 use Exception;
-use Models\CustomerData;
 
 class CustomerController
 {
 
     public function __construct(
-        private CustomerMySqlRepository $customerRepository
+        private CustomerRepository $customerRepository
     ) {
     }
 
@@ -37,17 +37,18 @@ class CustomerController
         $companiesData = $searchData['companies'];
 
         foreach ($companiesData as $companyData) {
-            $newcompanyData = new CustomerData(
+            $newcompanyData = new Customer(
                 $companyData['id'],
                 $companyData['country'],
                 $companyData['name'],
                 $companyData['regNo'],
+                $randomVat
             );
 
             try {
                 $this->customerRepository->save($newcompanyData);
             } catch (Exception $e) {
-                throw $e->getMessage();
+                throw new Exception($e->getMessage());
             }
         }
     }
