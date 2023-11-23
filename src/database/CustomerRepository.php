@@ -27,8 +27,9 @@ class CustomerRepository
             $stmt->execute();
             $stmt->close();
 
-            $addressValues = array_values($customer->address());
-            $addressValues[] = $customer->id();
+            $customerId = $customer->id();
+            $addressValues = $customer->addressValues();
+            $addressValues[] = $customerId;
 
             $stmt = $this->connection->prepare("INSERT INTO customer_address (value, street, city, post_code, province, house_no, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param(
@@ -36,6 +37,17 @@ class CustomerRepository
                 ...$addressValues
             );
             $stmt->execute();
+            $stmt->close();
+
+            $stmt = $this->connection->prepare("INSERT INTO customer_phone_number (value, customer_id) VALUES (?, ?)");
+
+            if (count($customer->phoneNumbers()) > 0) {
+                foreach ($customer->phoneNumbers() as $phoneNumber) {
+
+                    $stmt->bind_param("ss", $phoneNumber, $customerId);
+                    $stmt->execute();
+                }
+            }
             $stmt->close();
 
             $this->connection->commit();
