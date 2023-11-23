@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Models;
+namespace Model;
 
-class CustomerData
+class Customer
 {
 
     public function __construct(
