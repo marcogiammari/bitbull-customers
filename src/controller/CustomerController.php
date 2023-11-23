@@ -37,12 +37,17 @@ class CustomerController
         $companiesData = $searchData['companies'];
 
         foreach ($companiesData as $companyData) {
+
+            $address = $companyData['address'];
+            unset($address['simpleValue']);
+
             $newcompanyData = new Customer(
                 $companyData['id'],
                 $companyData['country'],
                 $companyData['name'],
                 $companyData['regNo'],
-                $randomVat
+                $randomVat,
+                array_values($address)
             );
 
             try {

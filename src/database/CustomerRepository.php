@@ -27,6 +27,17 @@ class CustomerRepository
             $stmt->execute();
             $stmt->close();
 
+            $addressValues = $customer->address();
+            $addressValues[] = $customer->id();
+
+            $stmt = $this->connection->prepare("INSERT INTO customer_address (street, city, postCode, province, houseNo, customer_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param(
+                "ssssss",
+                ...$addressValues
+            );
+            $stmt->execute();
+            $stmt->close();
+
             $this->connection->commit();
         } catch (Exception $e) {
             $this->connection->rollback();

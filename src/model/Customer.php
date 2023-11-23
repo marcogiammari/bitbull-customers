@@ -13,6 +13,7 @@ class Customer
         private string $name,
         private string $regNo,
         private string $vatNo,
+        private array $address
     ) {
     }
 
@@ -30,5 +31,10 @@ class Customer
             $this->regNo,
             $this->vatNo
         ];
+    }
+
+    public function address(): array
+    {
+        return $this->address;
     }
 }
