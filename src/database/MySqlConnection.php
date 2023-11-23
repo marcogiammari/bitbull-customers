@@ -7,7 +7,8 @@ namespace Database;
 use mysqli;
 use Exception;
 
-class MySql
+class MySqlConnection
+
 {
     private static $instance;
     private $connection;
@@ -28,7 +29,7 @@ class MySql
         }
     }
 
-    public static function getInstance(): MySQL
+    public static function getInstance(): MySqlConnection
     {
         if (self::$instance === null) {
             self::$instance = new self();
