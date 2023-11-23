@@ -12,8 +12,8 @@ class Customer
         private string $country,
         private string $name,
         private string $regNo,
+        private array $address,
         private string $vatNo,
-        private array $address
     ) {
     }
 

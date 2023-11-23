@@ -22,17 +22,17 @@ class CustomerRepository
         $this->connection->begin_transaction();
 
         try {
-            $stmt = $this->connection->prepare("INSERT INTO customer (id, country, name, regNo, vatNo) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->connection->prepare("INSERT INTO customer (id, country, name, reg_no, vat_no) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", ...$customer->values());
             $stmt->execute();
             $stmt->close();
 
-            $addressValues = $customer->address();
+            $addressValues = array_values($customer->address());
             $addressValues[] = $customer->id();
 
-            $stmt = $this->connection->prepare("INSERT INTO customer_address (street, city, postCode, province, houseNo, customer_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $this->connection->prepare("INSERT INTO customer_address (value, street, city, post_code, province, house_no, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param(
-                "ssssss",
+                "sssssss",
                 ...$addressValues
             );
             $stmt->execute();
