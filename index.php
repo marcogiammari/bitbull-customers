@@ -16,4 +16,4 @@ $controller = new CustomerController(
     new CustomerRepository(MySqlConnection::getInstance())
 );
 
-var_dump($controller->saveRandomFromCsv('./' . $_ENV['CSV_FILENAME']));
+$controller->saveRandomFromCsv('./' . $_ENV['CSV_FILENAME']);
