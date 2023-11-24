@@ -12,8 +12,9 @@ class Customer
         private string $country,
         private string $name,
         private string $regNo,
-        private array $address,
         private string $vatNo,
+        private array $addressValues,
+        private array $phoneNumbers = [],
     ) {
     }
 
@@ -33,8 +34,18 @@ class Customer
         ];
     }
 
-    public function address(): array
+    public function addressValues(): array
     {
-        return $this->address;
+        return $this->addressValues;
+    }
+
+    public function addPhoneNumbers(array $phoneNumbers): void
+    {
+        $this->phoneNumbers = $phoneNumbers;
+    }
+
+    public function phoneNumbers(): array
+    {
+        return $this->phoneNumbers;
     }
 }

@@ -37,17 +37,21 @@ class CustomerController
         $companiesData = $searchData['companies'];
 
         foreach ($companiesData as $companyData) {
-            $newcompanyData = new Customer(
+            $newCustomer = new Customer(
                 $companyData['id'],
                 $companyData['country'],
                 $companyData['name'],
                 $companyData['regNo'],
-                $companyData['address'],
-                $randomVat
+                $randomVat,
+                array_values($companyData['address'])
             );
 
+            if (isset($companyData['phoneNumbers']) && count($companyData['phoneNumbers']) > 0) {
+                $newCustomer->addPhoneNumbers($companyData['phoneNumbers']);
+            }
+
             try {
-                $this->customerRepository->save($newcompanyData);
+                $this->customerRepository->save($newCustomer);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage());
             }

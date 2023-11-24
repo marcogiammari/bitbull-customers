@@ -7,6 +7,7 @@ namespace Database;
 use Database\MySqlConnection;
 use mysqli;
 use Exception;
+use Model\Customer;
 
 class CustomerRepository
 {
@@ -17,26 +18,17 @@ class CustomerRepository
         $this->connection = $connection->getConnection();
     }
 
-    public function save($customer): void
+    public function save(Customer $customer): void
     {
         $this->connection->begin_transaction();
 
         try {
-            $stmt = $this->connection->prepare("INSERT INTO customer (id, country, name, reg_no, vat_no) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", ...$customer->values());
-            $stmt->execute();
-            $stmt->close();
+            $this->saveCustomerData($customer);
+            $this->saveCustomerAddress($customer);
 
-            $addressValues = array_values($customer->address());
-            $addressValues[] = $customer->id();
-
-            $stmt = $this->connection->prepare("INSERT INTO customer_address (value, street, city, post_code, province, house_no, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param(
-                "sssssss",
-                ...$addressValues
-            );
-            $stmt->execute();
-            $stmt->close();
+            if (count($customer->phoneNumbers()) > 0) {
+                $this->saveCustomerPhoneNumbers($customer);
+            }
 
             $this->connection->commit();
         } catch (Exception $e) {
@@ -45,5 +37,38 @@ class CustomerRepository
         }
 
         $this->connection->close();
+    }
+
+    private function saveCustomerData(Customer $customer): void
+    {
+        $stmt = $this->connection->prepare("INSERT INTO customer_data (id, country, name, reg_no, vat_no) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", ...$customer->values());
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    private function saveCustomerAddress(Customer $customer): void
+    {
+        $customerId = $customer->id();
+        $addressValues = $customer->addressValues();
+        $addressValues[] = $customerId;
+        $stmt = $this->connection->prepare("INSERT INTO customer_address (value, street, city, post_code, province, house_no, customer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param(
+            "sssssss",
+            ...$addressValues
+        );
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    private function saveCustomerPhoneNumbers(Customer $customer): void
+    {
+        $customerId = $customer->id();
+        foreach ($customer->phoneNumbers() as $phoneNumber) {
+            $stmt = $this->connection->prepare("INSERT INTO customer_phone_number (value, customer_id) VALUES (?, ?)");
+            $stmt->bind_param("ss", $phoneNumber, $customerId);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 }
