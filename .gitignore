@@ -1,4 +1,4 @@
 /vendor
-/asset
+piva-italia.csv
 /.env
 test.php
