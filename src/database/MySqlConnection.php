@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Database;
+namespace BitbullCustomers\Database;
 
 use mysqli;
 use Exception;

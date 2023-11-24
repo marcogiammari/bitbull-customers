@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Service\Creditsafe;
+namespace BitbullCustomers\Service\Creditsafe;
 
 require 'config/creditsafe.php';
 

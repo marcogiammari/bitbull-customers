@@ -2,18 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Controller;
+namespace BitbullCustomers\Controller;
 
-require './src/service/CsvReader.php';
-require './src/service/creditsafe/Auth.php';
-require './src/service/creditsafe/SearchCompany.php';
-require './src/model/Customer.php';
-
-use Database\CustomerRepository;
-use Service\CsvReader;
-use Service\Creditsafe\Auth;
-use Service\Creditsafe\SearchCompany;
-use Model\Customer;
+use BitbullCustomers\Database\CustomerRepository;
+use BitbullCustomers\Service\CsvReader;
+use BitbullCustomers\Service\Creditsafe\Auth;
+use BitbullCustomers\Service\Creditsafe\SearchCompany;
+use BitbullCustomers\Model\Customer;
 use Exception;
 
 class CustomerController
