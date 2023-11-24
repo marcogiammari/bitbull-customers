@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Database;
+namespace BitbullCustomers\Database;
 
-use Database\MySqlConnection;
+use BitbullCustomers\Database\MySqlConnection;
+use BitbullCustomers\Model\Customer;
 use mysqli;
 use Exception;
-use Model\Customer;
 
 class CustomerRepository
 {

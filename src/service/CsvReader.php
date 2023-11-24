@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Service;
+namespace BitbullCustomers\Service;
 
 use Exception;
 
