@@ -13,14 +13,14 @@ Questo progetto PHP legge una lista di partite IVA scritte in un file CSV, estra
 
 1. Clonare il repository:
 
-    ```bash
+    ```
     git clone https://github.com/marcogiammari/bitbull-customers.git
     cd bitbull-customers
     ```
 
 2. Installare le dipendenze con Composer:
 
-    ```bash
+    ```
     composer install
     ```
 
@@ -28,7 +28,7 @@ Questo progetto PHP legge una lista di partite IVA scritte in un file CSV, estra
 
 4. Creare un file `.env` nella directory principale copiando il file `.env.sample` e sostituendo le seguenti variabili d'ambiente:
 
-    ```dotenv
+    ```
     DB_HOST= il-tuo-host
     DB_USER= il-tuo-username
     DB_PASSWORD= la-tua-password
@@ -40,7 +40,7 @@ Questo progetto PHP legge una lista di partite IVA scritte in un file CSV, estra
 
 5. Per creare il database e le tabelle necessarie, eseguire il seguente comando:
 
-    ```bash
+    ```
     php .\config\migrate.php
     ```
 
@@ -48,6 +48,4 @@ Questo progetto PHP legge una lista di partite IVA scritte in un file CSV, estra
 
 Per usare l'applicazione, eseguire il seguente comando:
 
-    ```bash
     php index.php
-    ```
